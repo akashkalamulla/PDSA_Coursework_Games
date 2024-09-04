@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import random
 import tkinter as tk
-from game_app import GameApp
+from game import GameApp
 
 class TestGameApp(unittest.TestCase):
 
