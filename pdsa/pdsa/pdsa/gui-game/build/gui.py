@@ -13,7 +13,7 @@ from algo import random_no_generator, Bellman_Ford_algo, Dijkstra_algorithm
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"/Game/build/assets/frame0")
 
-
+#path
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
