@@ -6,7 +6,7 @@ import time
 import mysql.connector
 from mysql.connector import Error
 
-# MySQL setup
+
 db_config = {
     'user': 'root',
     'password': '',
@@ -14,7 +14,7 @@ db_config = {
     'database': 'pdsa_2'
 }
 
-# Establishing connection to MySQL
+
 try:
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
