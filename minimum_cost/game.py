@@ -5,7 +5,6 @@ import time
 import mysql.connector
 import unittest
 
-# Database Connection
 db_connection = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -15,33 +14,23 @@ db_connection = mysql.connector.connect(
 
 cursor = db_connection.cursor()
 
-
-# Function to generate random cost matrix
 def generate_cost_matrix(n):
     return [[random.randint(20, 200) for _ in range(n)] for _ in range(n)]
 
-
-# Manual Hungarian Algorithm Implementation
 def hungarian_algorithm(cost_matrix):
     n = len(cost_matrix)
-    original_cost_matrix = [row[:] for row in cost_matrix]  # Keep the original matrix for cost calculation
+    original_cost_matrix = [row[:] for row in cost_matrix]
 
-    # Step 1: Subtract the row minimum from each row
     for i in range(n):
         row_min = min(cost_matrix[i])
         for j in range(n):
             cost_matrix[i][j] -= row_min
 
-    # Step 2: Subtract the column minimum from each column
     for j in range(n):
         col_min = min(cost_matrix[i][j] for i in range(n))
         for i in range(n):
             cost_matrix[i][j] -= col_min
 
-    # Step 3: Cover all zeros with the minimum number of lines (Not fully implemented in this simple example)
-    # ... A simplified version for demonstration purposes
-
-    # Step 4: Make assignments (this is a simplified version for clarity)
     row_ind = list(range(n))
     col_ind = list(range(n))
 
@@ -49,8 +38,6 @@ def hungarian_algorithm(cost_matrix):
 
     return row_ind, col_ind, total_cost
 
-
-# Save to Database
 def save_to_db(task_count, time_taken, total_cost):
     try:
         cursor.execute("INSERT INTO task_assignments (task_count, time_taken, total_cost) VALUES (%s, %s, %s)",
@@ -59,8 +46,6 @@ def save_to_db(task_count, time_taken, total_cost):
     except mysql.connector.Error as err:
         messagebox.showerror("Database Error", f"Error: {err}")
 
-
-# GUI Application
 class MinimumCostGame(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -115,8 +100,6 @@ class MinimumCostGame(tk.Tk):
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
-
-# Unit Testing
 class TestMinimumCostGame(unittest.TestCase):
     def test_hungarian_algorithm(self):
         cost_matrix = [
@@ -130,10 +113,8 @@ class TestMinimumCostGame(unittest.TestCase):
     def test_db_connection(self):
         self.assertIsNotNone(db_connection)
 
-
 if __name__ == "__main__":
     app = MinimumCostGame()
     app.mainloop()
 
-    # Run Unit Tests
     unittest.main(argv=[''], exit=False)
